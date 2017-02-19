@@ -29,42 +29,41 @@ import random
 numSqr = 10
 Sqrz = []
 a = 25 #opacity channel
+deltaX = 0
+deltaY = 0
 
 def setup():
     size(1200,1200)
     background(255,255,255)
     strokeWeight(2)
+    smooth()
+    frameRate(5)
     getVertices()
     print(Sqrz)
     
 def draw():
     global Sqrz
+    global deltaX
+    global deltaY
+    pushMatrix()
+    drawSqrz()
     for i in range(0,len(Sqrz)):
-        x1 = Sqrz[i][0]
-        y1 = Sqrz[i][1]
-        x2 = Sqrz[i][2]
-        y2 = Sqrz[i][3]
-        x3 = Sqrz[i][4]
-        y3 = Sqrz[i][5]
-        x4 = Sqrz[i][6]
-        y4 = Sqrz[i][7]
-        r = Sqrz[i][8]
-        g = Sqrz[i][9]
-        b = Sqrz[i][9]
-        beginShape()
-        vertex(x1,y1)
-        vertex(x2,y2)
-        vertex(x3,y3)
-        vertex(x4,y4)
-        vertex(x1,y1)
-        endShape()
-        fill(r,g,b,a)
+        deltaX = random.uniform(-3,3)
+        deltaY = random.uniform(-3,3)
+        Sqrz[i][0] += deltaX
+        Sqrz[i][1] += deltaY
+        deltaS = random.uniform(-3,3)
+        if (Sqrz[i][7] + deltaS >= 0) and (Sqrz[i][7] + deltaS <= 3):
+            Sqrz[i][7] += deltaS
+    getVertices()
+    popMatrix()
 
     
 def getVertices():
     global Sqrz
     global numSqr
     sqrlst = []
+    Sqrz = []
     for i in range(0,numSqr):
         x1 = random.randrange(100,200)
         x2 = random.randrange(100,200) + x1
@@ -91,3 +90,26 @@ def getRandomColor():
     g = random.randrange(0,255)
     b = random.randrange(0,255)
     return(r,g,b)
+
+def drawSqrz():
+    global Sqrz
+    for i in range(0,len(Sqrz)):
+        x1 = Sqrz[i][0]
+        y1 = Sqrz[i][1]
+        x2 = Sqrz[i][2]
+        y2 = Sqrz[i][3]
+        x3 = Sqrz[i][4]
+        y3 = Sqrz[i][5]
+        x4 = Sqrz[i][6]
+        y4 = Sqrz[i][7]
+        r = Sqrz[i][8]
+        g = Sqrz[i][9]
+        b = Sqrz[i][9]
+        beginShape()
+        vertex(x1,y1)
+        vertex(x2,y2)
+        vertex(x3,y3)
+        vertex(x4,y4)
+        vertex(x1,y1)
+        endShape()
+        fill(r,g,b,a)
