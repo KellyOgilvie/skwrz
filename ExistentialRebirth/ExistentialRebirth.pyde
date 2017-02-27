@@ -26,8 +26,8 @@ def setup():
 
     
 def draw():
-    #global deltaX
-    #global deltaY
+    global deltaX
+    global deltaY
     global deltaW
     global deltaH
     global Sqrz
@@ -45,9 +45,13 @@ def draw():
         #    Sqrz[i][7] += deltaS
             
         if Sqrz[i][2] <= 125:
-            Sqrz[i][2] += 1
+            Sqrz[i][2] += 12
         elif Sqrz[i][2] > 125:
              Sqrz[i][2] -= 120
+             deltaX = random.uniform(-300,300)
+             deltaY = random.uniform(-300,300)
+             Sqrz[i][0] += deltaX
+             Sqrz[i][1] += deltaY
 
         
     popMatrix()
@@ -70,9 +74,11 @@ def drawMovedSqr():
 def makeSqrz():
     global Sqrz
     for i in range(1, numSqr):
-        r = random.randrange(0, 255)
-        g = random.randrange(0, 255)
-        b = random.randrange(0, 255)
+        pallette = [[255,0,0],[20,20,20],[120,120,120],[200,200,200]]
+        rando = random.randrange(0, 3)
+        r = pallette[rando][0]
+        g = pallette[rando][1]
+        b = pallette[rando][2]
         w = random.randrange(0, 250)
         h = random.randrange(0, 250)
         x = random.randrange(25+w, 1175-w)
